@@ -22,7 +22,7 @@ import java.util.Random;
 @Controller
 public class CallbackController {
     private static final String ACCESS_TOKEN = "f910156aaae4c3d6f11096d0b1974126bc16ce332788311e66926379cfe0dada82e9ef82183c2651a601c";
-    private static final String CALLBACK_API_CONFIRMATION_TOKEN = "89d1a0f5";
+    private static final String CALLBACK_API_CONFIRMATION_TOKEN = "03e957b4";
     private static final String CALLBACK_API_EVENT_CONFIRMATION = "confirmation";
     private static final String CALLBACK_API_EVENT_MESSAGE_NEW = "message_new";
 
