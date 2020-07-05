@@ -16,7 +16,7 @@ ngrok http 8080
 ```
 ![screen](https://github.com/axpak7/VkBot/blob/master/src/screenshots/screenshot2.PNG)
 
-Здесь вам понадобится http адрес, например http://fb7347381f28.ngrok.io)
+Здесь вам понадобится http адрес, например http://fb7347381f28.ngrok.io
 
 ###2.Настройки сообщества
 Для подключения чат-бота Вы можете использовать любое своё сообщество ВКонтакте - группу,
