@@ -1,4 +1,4 @@
-package com.pak.messageHandler;
+package com.pak.messages;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -34,39 +34,41 @@ import com.google.gson.JsonParser;
  */
 
 
-public class MessageParser {
+public class MessageParser{
 
-    private JsonParser parser;
-    private JsonElement jsonElement;
-    private JsonObject jsonObject;
-    private JsonObject rootJsonObject;
-    private JsonObject messageJsonObject;
-
-    private String message;
-    private String userId;
+    private String text;
+    private String fromId;
     private String type;
 
     /**
      * @param incomingJson - входящее сообщение пользователя для парсинга.
      */
-    public MessageParser(String incomingJson) {
-        parser = new JsonParser();
-        jsonElement = parser.parse(incomingJson);
-        jsonObject = jsonElement.getAsJsonObject();
-        rootJsonObject = jsonObject.getAsJsonObject("object"); // получаем Object
-        messageJsonObject = rootJsonObject.getAsJsonObject("message"); // получаем объект message
-
-        this.type = jsonObject.get("type").getAsString();
-        this.message = messageJsonObject.get("text").getAsString();
-        this.userId = messageJsonObject.get("from_id").getAsString();
+    public MessageDto Parser(String incomingJson){
+        MessageDto messageDto;
+        JsonParser parser = new JsonParser();
+        JsonElement jsonElement = parser.parse(incomingJson);
+        JsonObject jsonObject = jsonElement.getAsJsonObject(); // весь json
+        type = jsonObject.get("type").getAsString(); // получает type
+        if (type.equals("message_new")) {
+            JsonObject rootJsonObject = jsonObject.getAsJsonObject("object"); // получаем Object
+            JsonObject messageJsonObject = rootJsonObject.getAsJsonObject("message"); // получаем объект message
+            fromId = messageJsonObject.get("from_id").getAsString();
+            text = messageJsonObject.get("text").getAsString();
+            System.out.println("type: " + type + "; from_id: " + fromId + "; text: " + text);
+            messageDto = new MessageDto(type, fromId, text);
+        } else {
+            System.out.println("type: " + type + "; from_id: null; text: null");
+            messageDto = new MessageDto(type);
+        }
+        return messageDto;
     }
 
-    public String getMessage() {
-        return message;
+    public String getText() {
+        return text;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getFromId() {
+        return fromId;
     }
 
     public String getType() {

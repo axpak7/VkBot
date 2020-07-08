@@ -1,6 +1,4 @@
-package com.pak.messageHandler;
-
-import java.net.URLEncoder;
+package com.pak.messages;
 
 public class MessageGeneration {
 
@@ -12,6 +10,7 @@ public class MessageGeneration {
      */
     public String getBotAnswer(String message) {
         String answer = "Вы сказали: ";
-        return URLEncoder.encode(answer + message);
+        //return URLEncoder.encode(answer + message);
+        return (answer + message);
     }
 }
