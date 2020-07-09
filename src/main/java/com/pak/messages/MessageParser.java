@@ -4,6 +4,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Структура входящего запроса
  * {
@@ -39,6 +42,7 @@ public class MessageParser{
     private String text;
     private String fromId;
     private String type;
+    private static final Logger logger = LogManager.getLogger();
 
     /**
      * @param incomingJson - входящее сообщение пользователя для парсинга.
@@ -54,10 +58,10 @@ public class MessageParser{
             JsonObject messageJsonObject = rootJsonObject.getAsJsonObject("message"); // получаем объект message
             fromId = messageJsonObject.get("from_id").getAsString();
             text = messageJsonObject.get("text").getAsString();
-            System.out.println("type: " + type + "; from_id: " + fromId + "; text: " + text);
+            logger.info("type: " + type + "; from_id: " + fromId + "; text: " + text);
             messageDto = new MessageDto(type, fromId, text);
         } else {
-            System.out.println("type: " + type + "; from_id: null; text: null");
+            logger.info("type: " + type + "; from_id: null; text: null");
             messageDto = new MessageDto(type);
         }
         return messageDto;

@@ -1,6 +1,8 @@
 package com.pak.controller;
 
 import com.pak.messages.MessageDto;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +32,8 @@ public class CallbackController {
 
     private final Random random = new Random();
 
+    private static final Logger logger = LogManager.getLogger();
+
     private String vkApiMessageSendMethod = "https://api.vk.com/method/messages.send";
 
     @RequestMapping(value = "/callback", method = RequestMethod.POST, consumes = {"application/json"})
@@ -50,12 +54,12 @@ public class CallbackController {
                 // генерация сообщения бота
                 messageGeneration = new MessageGeneration();
                 String botAnswer = buildBotResponse(userId, messageGeneration.getBotAnswer(message));
-                System.out.println(botAnswer);
+                logger.info(botAnswer);
 
                 try {
                     restTemplate.getForObject(botAnswer, String.class);
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                    logger.error("Error message: ", ex);
                 }
             }
         }
